@@ -8,10 +8,10 @@ export default {
         <h1>Cloudflare Worker API</h1>
         <p>Uporabi naslednje poti:</p>
         <ul>
-          <li><a href="/api/time">/api/time</a> - Trenutni čas</li>
-          <li><a href="/api/hello?name=Rok">/api/hello?name=Ana</a> - Pozdrav z imenom</li>
-          <li><a href="/api/student">/api/student</a> - Podatki o študentu</li>
-          <li><a href="/api/quote">/api/quote</a> - Naključni citat</li>
+          <li><a href="/api/time">/api/time</a></li>
+          <li><a href="/api/hello?name=Ana">/api/hello?name=Ana</a></li>
+          <li><a href="/api/quote">/api/quote</a></li>
+          <li><a href="/api/student">/api/student</a></li>
         </ul>
         `,
         { headers: { "content-type": "text/html; charset=utf-8" } }
@@ -31,6 +31,24 @@ export default {
       })
     }
 
+    if (url.pathname === "/api/quote") {
+      try {
+        const res = await fetch("https://zenquotes.io/api/random")
+        const data = await res.json()
+
+        return Response.json({
+          quote: data[0].q,
+          author: data[0].a
+        })
+      } catch (e) {
+        return Response.json(
+          { error: "Quote API error" },
+          { status: 500 }
+        )
+      }
+    }
+
+    // TUKAJ JE DODANA POT /api/student
     if (url.pathname === "/api/student") {
       return Response.json({
         ime: "Rok",
@@ -39,13 +57,6 @@ export default {
       })
     }
 
-    if (url.pathname === "/api/quote") {
-      return Response.json({
-        quote: "Kdor išče cilj, bo ostal prazen, ko ga bo dosegel, kdor pa najde pot, bo cilj vedno nosil v sebi.",
-        author: "Tone Pavček"
-      })
-    }
-
-    return new Response("Pot ne obstaja (404)", { status: 404 })
+    return new Response("Not found", { status: 404 })
   }
 }
