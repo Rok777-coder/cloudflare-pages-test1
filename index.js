@@ -10,8 +10,8 @@ export default {
         <ul>
           <li><a href="/api/time">/api/time</a> - Trenutni čas</li>
           <li><a href="/api/hello?name=Rok">/api/hello?name=Ana</a> - Pozdrav z imenom</li>
-          <li><a href="/api/student">/api/student</a> - Podatki o študentu (Dodatno)</li>
-          <li><a href="/api/quote">/api/quote</a> - Naključni citat (Dodatno)</li>
+          <li><a href="/api/student">/api/student</a> - Podatki o študentu</li>
+          <li><a href="/api/quote">/api/quote</a> - Naključni citat</li>
         </ul>
         `,
         { headers: { "content-type": "text/html; charset=utf-8" } }
